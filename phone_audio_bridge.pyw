@@ -150,4 +150,9 @@ class App:
         s.persist(); s.r.destroy()
 
 
+import ctypes
+_lock = ctypes.windll.kernel32.CreateMutexW(None, False, "PhoneAudioBridgeSingleInstance")
+if ctypes.windll.kernel32.GetLastError() == 183:  # already running
+    sys.exit(0)
+
 r = tk.Tk(); App(r); r.mainloop()
